@@ -1,0 +1,39 @@
+language: julia
+os:
+  - linux
+julia:
+  - 1.0
+notifications:
+  email: false
+git:
+  depth: 99999999
+cache:
+  timeout: 1000
+  directories:
+    - downloads
+env:
+  global:
+    - BINARYBUILDER_DOWNLOADS_CACHE=downloads
+    - BINARYBUILDER_AUTOMATIC_APPLE=true
+sudo: required
+
+# Before anything else, get the latest versions of things
+before_script:
+  - julia -e 'using Pkg; pkg"add BinaryProvider"; pkg"add BinaryBuilder#master"; Pkg.build()'
+
+script:
+  - julia build_tarballs.jl
+
+
+deploy:
+    provider: releases
+    api_key:
+        # Note; this api_key is only valid for thofma/AnticBuilder; you need
+        # to make your own: https://docs.travis-ci.com/user/deployment/releases/
+        secure: V6PnwZHxIt0R/GtgwG/LrcRVoswYFneuYlOrV99Fqhc9Uq52+j9E/uZ8akEfZrxLWy+fY8qveOgzyNzL/mGWETNb1Pq8aPu12wBVLgsD947ch9IuoxY1mJi3NIt5ts7/R5x2jwwQnXrhVWHs9hhQUeH7cTmEoQfk8F6nUR1eKnCmT4BD5THqwU2smQ1m6NFZyX43QEGKtpA/+DIlTk2r3hxx698Rx6Jq2wD9YjukW1mDuBBw5L10VzzvGZ7gWmLLdRaKwNJfklr0xGPb+PsfZ9Voy+5YGrN3r5UHEu+Smk9V81RK9edXdZdkv7gyvztd3uZEt4x6LHVdn8Ihgql34Imr58hlkd/YMzxJWbk0OpMe270/OL47oSSE9vvImW1DBUuIxlhP2V55DkWwPYw/tWENpcL+BoUQclaN3EN8o1myVgAo4JQyD2omll2MjQXoPI42s9WIX8GE/cUMWoQvmT0jyvOGjAgdJl39sMej+ObppsJ8ZWI8kknhy2SI0sbF68pzS9nF+yNsrEvLQ/7Fit+hl2AidNkOA6zJ0dA4oWjn7shs3qNWxSMsa48TRXseA9rBBX8X3yeiEjYYxMHDeFbMFwGOPeL2HlwrlhjrGSj2jBBvowNfw7SYB0lOM11UavJwqGqjpQPRpCRUzZjXenfS16niu74O+e5dycd6ZmM=
+    file_glob: true
+    file: products/*
+    skip_cleanup: true
+    on:
+        repo: thofma/AnticBuilder
+        tags: true
