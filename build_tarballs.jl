@@ -3,12 +3,12 @@
 using BinaryBuilder
 
 name = "libantic"
-version = v"0.0.0-a69c142a972e4566e01f5b1d76415b0208405ecb"
+version = v"0.0.0-364f97edd9b6af537787113cf910f16d7bbc48a3"
 
 # Collection of sources required to build libantic
 sources = [
     "https://github.com/wbhart/antic.git" =>
-    "a69c142a972e4566e01f5b1d76415b0208405ecb",
+    "364f97edd9b6af537787113cf910f16d7bbc48a3",
 
 ]
 
@@ -55,8 +55,7 @@ products(prefix) = [
 dependencies = [
     "https://github.com/JuliaPackaging/Yggdrasil/releases/download/GMP-v6.1.2-1/build_GMP.v6.1.2.jl",
     "https://github.com/JuliaPackaging/Yggdrasil/releases/download/MPFR-v4.0.2-1/build_MPFR.v4.0.2.jl",
-    "https://github.com/thofma/Flint2Builder/releases/download/16514/build_libflint.v0.0.0-165143e3e4cc54e00471ddab1a9573a8e28477ff.jl"
-]
+    "https://github.com/thofma/Flint2Builder/releases/download/c58523/build_libflint.v0.0.0-c5852387025bf144f32c0593f0ecc906c81266f1.jl"]
 
 # Build the tarballs, and possibly a `build.jl` as well.
 build_tarballs(ARGS, name, version, sources, script, platforms, products, dependencies)
